@@ -43,6 +43,19 @@ namespace officium
             return recipeModel;
         }
 
+        public RecipeServiceModel AddRecipe(string name)
+        {
+            if(string.IsNullOrWhiteSpace(name))
+                throw new ArgumentOutOfRangeException("name",name,"Name value is required to create a new recipe");
+
+            var newRecipe = new Recipe {Name = name};
+            _dataContext.Recipes.Add(newRecipe);
+            _dataContext.SaveChanges();
+
+            var recipeModel = Map(newRecipe);
+            return recipeModel;
+        }
+
         private static int ParseRecipeId(string recipeId)
         {
             int recipeIdAsInt;
