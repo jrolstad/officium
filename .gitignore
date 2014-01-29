@@ -10,3 +10,5 @@ obj/
 *ncrunch*
 *crunchsolution*
 _Resharper.*
+*.mdf
+*.ldf

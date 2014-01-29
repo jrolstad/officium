@@ -1,21 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using officium.EntityFramework;
 using officium.ServiceModels;
 
 namespace officium
 {
     public class RecipeProvider
     {
+        private readonly OfficiumContext _dataContext;
+
+        public RecipeProvider(OfficiumContext dataContext)
+        {
+            _dataContext = dataContext;
+        }
+
         public IQueryable<RecipeServiceModel> Recipes()
         {
-            return new List<RecipeServiceModel>
-            {
-                new RecipeServiceModel {RecipeId = 1, Name = "Burger"},
-                new RecipeServiceModel {RecipeId = 2, Name = "Soup"},
-                new RecipeServiceModel {RecipeId = 3, Name = "Lamb Stew"},
-                new RecipeServiceModel {RecipeId = 4, Name = "Pot Pie"},
-                new RecipeServiceModel {RecipeId = 5, Name = "Lime Couscous"},
-            }
+            return _dataContext.Recipes
+                .Select(r => new RecipeServiceModel {RecipeId = r.RecipeId, Name = r.Name})
             .AsQueryable();
         }
     }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Activation;
+using officium.DataModels;
+using officium.EntityFramework;
 using officium.ServiceModels;
 
 namespace officium
@@ -11,7 +13,7 @@ namespace officium
     {
         private readonly RecipeProvider _recipeProvider;
 
-        public RecipeService():this(new RecipeProvider())
+        public RecipeService():this(new RecipeProvider(new OfficiumContext()))
         {
             
         }
