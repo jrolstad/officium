@@ -80,7 +80,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IRecipeService.cs" />
-    <Compile Include="RecipeProvider.cs" />
     <Compile Include="RecipeService.svc.cs">
       <DependentUpon>RecipeService.svc</DependentUpon>
     </Compile>

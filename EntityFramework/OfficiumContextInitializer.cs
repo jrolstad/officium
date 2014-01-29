@@ -7,16 +7,16 @@ namespace officium.EntityFramework
     {
         protected override void Seed(OfficiumContext context)
         {
-            context.Recipes.Add(CreateNewRecipe(1, "Foo"));
-            context.Recipes.Add(CreateNewRecipe(2, "Soup"));
-            context.Recipes.Add(CreateNewRecipe(3, "Lamb"));
-            context.Recipes.Add(CreateNewRecipe(4, "Pie"));
-            context.Recipes.Add(CreateNewRecipe(5, "Couscous"));
+            context.Recipes.Add(CreateNewRecipe("Foo"));
+            context.Recipes.Add(CreateNewRecipe("Soup"));
+            context.Recipes.Add(CreateNewRecipe("Lamb"));
+            context.Recipes.Add(CreateNewRecipe("Pie"));
+            context.Recipes.Add(CreateNewRecipe("Couscous"));
         }
 
-        private static Recipe CreateNewRecipe(int id, string name)
+        private static Recipe CreateNewRecipe(string name)
         {
-            return new Recipe {RecipeId = id,Name=name};
+            return new Recipe {Name=name};
         }
     }
 }

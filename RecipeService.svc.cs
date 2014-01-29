@@ -11,22 +11,21 @@ namespace officium
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class RecipeService : IRecipeService
     {
-        private readonly RecipeProvider _recipeProvider;
+        private readonly OfficiumContext _dataContext;
 
-        public RecipeService():this(new RecipeProvider(new OfficiumContext()))
+        public RecipeService():this(new OfficiumContext())
         {
             
         }
 
-        public RecipeService(RecipeProvider recipeProvider)
+        public RecipeService(OfficiumContext dataContext)
         {
-            _recipeProvider = recipeProvider;
+            _dataContext = dataContext;
         }
 
         public List<RecipeServiceModel> GetAllRecipes()
         {
-            var recipes = _recipeProvider.Recipes();
-            var recipeModels = recipes
+            var recipeModels = _dataContext.Recipes
                 .Select(Map)
                 .ToList();
             return recipeModels;
@@ -36,7 +35,7 @@ namespace officium
         {
             var recipeIdAsInt = ParseRecipeId(recipeId);
 
-            var matchingRecipe = _recipeProvider.Recipes()
+            var matchingRecipe = _dataContext.Recipes
                 .FirstOrDefault(recipe => recipe.RecipeId == recipeIdAsInt);
 
             var recipeModel = Map(matchingRecipe);
