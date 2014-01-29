@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
-using officium.Models;
+using officium.ServiceModels;
 
 namespace officium
 {
@@ -9,7 +9,7 @@ namespace officium
     public interface IRecipeService
     {
         [OperationContract]
-        [WebGet(UriTemplate ="Recipes")]
+        [WebGet(UriTemplate ="/Recipes")]
         List<RecipeServiceModel> GetAllRecipes();
     }
 }
