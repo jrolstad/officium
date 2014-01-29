@@ -65,6 +65,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataModels\Recipe.cs" />
     <Compile Include="IRecipeService.cs" />
     <Compile Include="RecipeProvider.cs" />
     <Compile Include="RecipeService.svc.cs">
