@@ -9,7 +9,7 @@ namespace officium
     public interface IRecipeService
     {
         [OperationContract]
-        [WebGet(UriTemplate ="/Recipes")]
+        [WebGet(UriTemplate ="/Recipe",ResponseFormat = WebMessageFormat.Json)]
         List<RecipeServiceModel> GetAllRecipes();
     }
 }
