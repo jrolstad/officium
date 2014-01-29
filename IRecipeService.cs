@@ -11,5 +11,9 @@ namespace officium
         [OperationContract]
         [WebGet(UriTemplate ="/Recipe",ResponseFormat = WebMessageFormat.Json)]
         List<RecipeServiceModel> GetAllRecipes();
+
+        [OperationContract]
+        [WebGet(UriTemplate = "/Recipe/{recipeId}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
+        RecipeServiceModel GetRecipe(string recipeId);
     }
 }
