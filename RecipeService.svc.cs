@@ -9,25 +9,42 @@ namespace officium
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class RecipeService : IRecipeService
     {
+        private readonly RecipeProvider _recipeProvider;
+
+        public RecipeService():this(new RecipeProvider())
+        {
+            
+        }
+
+        public RecipeService(RecipeProvider recipeProvider)
+        {
+            _recipeProvider = recipeProvider;
+        }
+
         public List<RecipeServiceModel> GetAllRecipes()
         {
-            return new List<RecipeServiceModel>
-            {
-                new RecipeServiceModel {RecipeId = 1, Name = "Burger"},
-                new RecipeServiceModel {RecipeId = 2, Name = "Soup"},
-            };
+            var recipes = _recipeProvider.Recipes();
+
+            return recipes.ToList();
         }
 
         public RecipeServiceModel GetRecipe(string recipeId)
         {
-            int recipeIdAsInt;
-            if(!int.TryParse(recipeId,out recipeIdAsInt))
-                throw new ArgumentException("Invalid recipeId; The value needs to be an integer.");
+            var recipeIdAsInt = ParseRecipeId(recipeId);
 
-            var matchingRecipe = GetAllRecipes()
+            var matchingRecipe = _recipeProvider.Recipes()
                 .FirstOrDefault(recipe => recipe.RecipeId == recipeIdAsInt);
 
             return matchingRecipe;
+        }
+
+        private static int ParseRecipeId(string recipeId)
+        {
+            int recipeIdAsInt;
+            if (!int.TryParse(recipeId, out recipeIdAsInt))
+                throw new ArgumentException("Invalid recipeId; The value needs to be an integer.");
+
+            return recipeIdAsInt;
         }
     }
 }
