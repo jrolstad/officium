@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using officium.DataModels;
 using officium.EntityFramework;
 using officium.ServiceModels;
 
@@ -13,11 +14,9 @@ namespace officium
             _dataContext = dataContext;
         }
 
-        public IQueryable<RecipeServiceModel> Recipes()
+        public IQueryable<Recipe> Recipes()
         {
-            return _dataContext.Recipes
-                .Select(r => new RecipeServiceModel {RecipeId = r.RecipeId, Name = r.Name})
-            .AsQueryable();
+            return _dataContext.Recipes;
         }
     }
 }

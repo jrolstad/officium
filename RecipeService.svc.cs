@@ -26,8 +26,10 @@ namespace officium
         public List<RecipeServiceModel> GetAllRecipes()
         {
             var recipes = _recipeProvider.Recipes();
-
-            return recipes.ToList();
+            var recipeModels = recipes
+                .Select(Map)
+                .ToList();
+            return recipeModels;
         }
 
         public RecipeServiceModel GetRecipe(string recipeId)
@@ -37,7 +39,9 @@ namespace officium
             var matchingRecipe = _recipeProvider.Recipes()
                 .FirstOrDefault(recipe => recipe.RecipeId == recipeIdAsInt);
 
-            return matchingRecipe;
+            var recipeModel = Map(matchingRecipe);
+
+            return recipeModel;
         }
 
         private static int ParseRecipeId(string recipeId)
@@ -47,6 +51,14 @@ namespace officium
                 throw new ArgumentException("Invalid recipeId; The value needs to be an integer.");
 
             return recipeIdAsInt;
+        }
+
+        private static RecipeServiceModel Map(Recipe recipe)
+        {
+            if (recipe == null)
+                return null;
+
+            return new RecipeServiceModel {RecipeId = recipe.RecipeId, Name = recipe.Name};
         }
     }
 }
